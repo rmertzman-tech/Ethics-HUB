@@ -3,529 +3,1323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethics Beyond Boundaries - Interactive Learning Hub</title>
+    <title>ABCD Lens Explorer | Ethics Beyond Boundaries</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap');
         
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
-        body { 
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --agency: #10b981;
+            --beauty: #f59e0b;
+            --context: #8b5cf6;
+            --dynamics: #ef4444;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: white;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--bg-gradient);
             min-height: 100vh;
-            padding-bottom: 3rem;
+            color: var(--text);
+            line-height: 1.6;
         }
         
-        .heading-font { font-family: 'Playfair Display', serif; }
-        
-        .glass {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
         }
         
-        .glass-dark {
-            background: rgba(45, 55, 72, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        header {
+            text-align: center;
             color: white;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
         }
         
-        .fade-in { animation: fadeIn 0.6s ease-in; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        h1 {
+            font-family: 'Spectral', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
         }
         
-        header { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
-        .header-content { max-width: 72rem; margin: 0 auto; padding: 2rem 1.5rem; text-align: center; }
-        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .tagline { font-size: 1.25rem; opacity: 0.9; margin-bottom: 0.5rem; }
-        .subtitle { font-size: 1rem; opacity: 0.8; }
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
         
-        main { max-width: 72rem; margin: 0 auto; padding: 2rem 1.5rem; }
+        .tagline {
+            font-size: 1rem;
+            opacity: 0.85;
+            margin-top: 0.5rem;
+        }
         
-        .welcome-card {
+        /* Introduction Card */
+        .intro-card {
+            background: var(--card-bg);
             border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             padding: 2.5rem;
             margin-bottom: 2rem;
-            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         
-        .welcome-card h2 {
+        .intro-card h2 {
+            font-family: 'Spectral', serif;
             font-size: 2rem;
-            font-weight: 700;
-            color: #1f2937;
             margin-bottom: 1rem;
+            color: var(--primary);
         }
         
-        .welcome-card p {
-            font-size: 1.125rem;
-            color: #4b5563;
-            line-height: 1.6;
-            max-width: 48rem;
-            margin: 0 auto;
+        .intro-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
         }
         
-        .mission-box {
-            background: linear-gradient(to right, #faf5ff, #eff6ff);
-            border-left: 4px solid #9333ea;
-            padding: 1.5rem;
-            border-radius: 0 0.5rem 0.5rem 0;
-            margin: 2rem 0;
+        /* Dimensions Grid */
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
         
-        .mission-box h3 {
-            font-weight: 700;
-            color: #581c87;
+        .dimension-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        
+        .dimension-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        .dimension-card.agency { border-color: var(--agency); }
+        .dimension-card.beauty { border-color: var(--beauty); }
+        .dimension-card.context { border-color: var(--context); }
+        .dimension-card.dynamics { border-color: var(--dynamics); }
+        
+        .dimension-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .dimension-card h3 {
+            font-family: 'Spectral', serif;
+            font-size: 1.5rem;
             margin-bottom: 0.75rem;
         }
         
-        .mission-box p {
-            color: #374151;
+        .dimension-card.agency h3 { color: var(--agency); }
+        .dimension-card.beauty h3 { color: var(--beauty); }
+        .dimension-card.context h3 { color: var(--context); }
+        .dimension-card.dynamics h3 { color: var(--dynamics); }
+        
+        .dimension-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
             line-height: 1.6;
         }
         
-        .chapter-section {
-            margin-bottom: 3rem;
+        /* Scenario Selection */
+        .scenario-section {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
         }
         
-        .chapter-header {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
+        .scenario-section h2 {
+            font-family: 'Spectral', serif;
+            font-size: 2rem;
             margin-bottom: 1.5rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: var(--primary);
         }
         
-        .chapter-header h2 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-        
-        .chapter-header p {
-            color: #6b7280;
-            font-size: 0.95rem;
-        }
-        
-        .app-grid {
+        .scenario-grid {
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.5rem;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         }
         
-        .app-card {
-            background: white;
+        .scenario-card {
+            background: #f9fafb;
             border-radius: 0.75rem;
             padding: 1.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
+            border: 2px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
         }
         
-        .app-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
-            border-color: #667eea;
+        .scenario-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
         }
         
-        .app-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .scenario-card.active {
+            border-color: var(--primary);
+            background: #eef2ff;
         }
         
-        .app-card h3 {
-            font-size: 1.375rem;
-            font-weight: 700;
-            color: #1f2937;
+        .scenario-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .scenario-card h3 {
+            font-size: 1.25rem;
             margin-bottom: 0.5rem;
+            color: var(--text);
         }
         
-        .app-card .time-estimate {
+        .scenario-scale {
             display: inline-block;
-            background: #fef3c7;
-            color: #92400e;
+            background: var(--primary);
+            color: white;
             padding: 0.25rem 0.75rem;
-            border-radius: 0.375rem;
+            border-radius: 1rem;
             font-size: 0.75rem;
             font-weight: 600;
             margin-bottom: 0.75rem;
         }
         
-        .app-card p {
-            color: #4b5563;
-            font-size: 0.875rem;
+        .scenario-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Analysis Workspace */
+        .workspace {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .workspace.active {
+            display: block;
+        }
+        
+        .workspace-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .workspace-header h2 {
+            font-family: 'Spectral', serif;
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+        }
+        
+        .scenario-description {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .scenario-description p {
+            color: var(--text);
+            line-height: 1.7;
+        }
+        
+        /* Dimension Tabs */
+        .dimension-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .dimension-tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid var(--border);
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .dimension-tab:hover {
+            transform: translateY(-2px);
+        }
+        
+        .dimension-tab.active.agency {
+            background: var(--agency);
+            border-color: var(--agency);
+            color: white;
+        }
+        
+        .dimension-tab.active.beauty {
+            background: var(--beauty);
+            border-color: var(--beauty);
+            color: white;
+        }
+        
+        .dimension-tab.active.context {
+            background: var(--context);
+            border-color: var(--context);
+            color: white;
+        }
+        
+        .dimension-tab.active.dynamics {
+            background: var(--dynamics);
+            border-color: var(--dynamics);
+            color: white;
+        }
+        
+        /* Dimension Content */
+        .dimension-content {
+            display: none;
+        }
+        
+        .dimension-content.active {
+            display: block;
+        }
+        
+        .dimension-intro {
+            background: #f0fdf4;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--agency);
+        }
+        
+        .dimension-intro.beauty {
+            background: #fffbeb;
+            border-color: var(--beauty);
+        }
+        
+        .dimension-intro.context {
+            background: #f5f3ff;
+            border-color: var(--context);
+        }
+        
+        .dimension-intro.dynamics {
+            background: #fef2f2;
+            border-color: var(--dynamics);
+        }
+        
+        .dimension-intro h4 {
+            font-family: 'Spectral', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .dimension-intro p {
+            color: var(--text-light);
             line-height: 1.6;
+        }
+        
+        /* Scale Selector */
+        .scale-selector {
+            margin-bottom: 2rem;
+        }
+        
+        .scale-selector h4 {
+            font-size: 1.1rem;
             margin-bottom: 1rem;
-            flex-grow: 1;
+            color: var(--text);
         }
         
-        .app-card .features {
-            list-style: none;
-            margin-bottom: 1.25rem;
+        .scale-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
         
-        .app-card .features li {
-            color: #6b7280;
-            font-size: 0.8125rem;
-            padding: 0.375rem 0;
-            padding-left: 1.5rem;
-            position: relative;
+        .scale-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 2px solid var(--border);
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
         }
         
-        .app-card .features li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #16a34a;
-            font-weight: 700;
+        .scale-btn:hover {
+            border-color: var(--primary);
         }
         
+        .scale-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        /* Questions */
+        .questions-section {
+            margin-bottom: 2rem;
+        }
+        
+        .question-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .question-group h5 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+        
+        .question-group textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 0.5rem;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 0.95rem;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+        
+        .question-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Expert Analysis */
+        .expert-section {
+            background: #fef3c7;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--beauty);
+            margin-top: 2rem;
+        }
+        
+        .expert-section h4 {
+            font-family: 'Spectral', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .expert-section p {
+            color: var(--text);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .expert-section strong {
+            color: var(--primary-dark);
+        }
+        
+        /* Synthesis View */
+        .synthesis-section {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .synthesis-section h3 {
+            font-family: 'Spectral', serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .synthesis-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .synthesis-card {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid;
+        }
+        
+        .synthesis-card.agency { border-color: var(--agency); }
+        .synthesis-card.beauty { border-color: var(--beauty); }
+        .synthesis-card.context { border-color: var(--context); }
+        .synthesis-card.dynamics { border-color: var(--dynamics); }
+        
+        .synthesis-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .synthesis-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Buttons */
         .btn {
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9375rem;
             border: none;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            transition: all 0.2s;
+            font-size: 1rem;
+            font-family: 'Work Sans', sans-serif;
         }
         
         .btn-primary {
-            background: linear-gradient(to right, #9333ea, #3b82f6);
+            background: var(--primary);
             color: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
         
         .btn-primary:hover {
-            background: linear-gradient(to right, #7e22ce, #2563eb);
-            transform: scale(1.02);
+            background: var(--primary-dark);
+            transform: translateY(-2px);
         }
         
         .btn-secondary {
-            background: #f3f4f6;
-            color: #1f2937;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
         
         .btn-secondary:hover {
-            background: #e5e7eb;
+            background: #eef2ff;
         }
         
-        .status-badge {
-            display: inline-block;
-            padding: 0.375rem 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-        
-        .status-available {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        
-        .status-coming {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        
-        .placeholder-card {
-            background: #f9fafb;
-            border: 2px dashed #d1d5db;
-            border-radius: 0.75rem;
-            padding: 1.75rem;
-            text-align: center;
-            color: #6b7280;
-        }
-        
-        .placeholder-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.75rem;
-            opacity: 0.5;
-        }
-        
-        .placeholder-card h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #4b5563;
-        }
-        
-        .placeholder-card p {
-            font-size: 0.875rem;
-        }
-        
-        .info-section {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 0.75rem;
-            padding: 2rem;
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
             margin-top: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
         }
         
-        .info-section h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 1rem;
+        /* Progress Indicator */
+        .progress-bar {
+            background: #e5e7eb;
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 2rem;
+            overflow: hidden;
         }
         
-        .info-grid {
-            display: grid;
-            gap: 1.5rem;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            margin-top: 1.5rem;
+        .progress-fill {
+            background: var(--primary);
+            height: 100%;
+            transition: width 0.3s;
+            border-radius: 3px;
         }
         
-        .info-box {
-            background: #f9fafb;
-            border: 2px solid #e5e7eb;
-            border-radius: 0.5rem;
-            padding: 1.25rem;
-        }
-        
-        .info-box h3 {
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-            font-size: 1.125rem;
-        }
-        
-        .info-box p {
-            color: #4b5563;
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
-        
-        footer {
-            text-align: center;
+        /* Save Indicator */
+        .save-indicator {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--agency);
             color: white;
-            padding: 2rem 1.5rem;
-            font-size: 0.875rem;
-            opacity: 0.75;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .save-indicator.show {
+            display: flex;
         }
         
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
-            .tagline { font-size: 1rem; }
-            .app-grid { grid-template-columns: 1fr; }
+            .dimensions-grid,
+            .scenario-grid,
+            .synthesis-grid {
+                grid-template-columns: 1fr;
+            }
+            .dimension-tabs {
+                flex-direction: column;
+            }
+            .dimension-tab {
+                min-width: auto;
+            }
         }
     </style>
 </head>
 <body>
-    <header class="glass-dark">
-        <div class="header-content">
-            <h1 class="heading-font">Ethics Beyond Boundaries</h1>
-            <p class="tagline">Interactive Learning Hub</p>
-            <p class="subtitle">Saint Petersburg College Ethics Institute</p>
-        </div>
-    </header>
+    <div class="container">
+        <header>
+            <h1>ABCD Lens Explorer</h1>
+            <p class="subtitle">Four Dimensions of Human Agency</p>
+            <p class="tagline">Ethics Beyond Boundaries • Chapter 3</p>
+        </header>
 
-    <main>
-        <div class="welcome-card glass fade-in">
-            <h2 class="heading-font">Welcome to Your Ethical Development Journey</h2>
-            <p>This course gives you practical tools to examine your own values, defend your agency, and navigate ethical challenges in work and life. Each interactive app builds capabilities you'll use throughout your career.</p>
+        <!-- Introduction -->
+        <div class="intro-card">
+            <h2>The ABCD Framework</h2>
+            <p>While SAGE gives you a <strong>systematic method</strong> for ethical analysis (See→Analyze→Generate→Engage), ABCD provides four fundamental <strong>dimensions</strong> through which to examine any situation involving human agents.</p>
             
-            <div class="mission-box">
-                <h3>Our Dual Mission</h3>
-                <p><strong>Examine:</strong> Understand your own ethical framework—how you see the world and make decisions.<br>
-                <strong>Defend:</strong> Protect your integrity and agency when systems pressure you to compromise.</p>
-            </div>
-        </div>
-
-        <!-- Chapter 1 -->
-        <div class="chapter-section fade-in">
-            <div class="chapter-header">
-                <h2 class="heading-font">📖 Chapter 1: Your Phenomenological Reference Framework</h2>
-                <p>Discover your interpretive lens and learn from a case study in institutional failure.</p>
-            </div>
-
-            <div class="app-grid">
-                <!-- PRF Builder -->
-                <div class="app-card">
-                    <div class="app-icon">🔍</div>
-                    <h3>PRF Builder</h3>
-                    <span class="time-estimate">⏱️ 30-40 minutes</span>
-                    <p>Build your Phenomenological Reference Framework—the interpretive lens through which you see ethical situations. Discover your strengths and blind spots.</p>
-                    <ul class="features">
-                        <li>Map your formative experiences</li>
-                        <li>Discover your dominant ethical lens</li>
-                        <li>Identify blind spots & strengths</li>
-                        <li>Define your forward pull</li>
-                        <li>Download complete report</li>
-                    </ul>
-                    <a href="https://rmertzman-tech.github.io/PRF-Builder/" class="btn btn-primary">Start Building →</a>
-                </div>
-
-                <!-- Challenger Case Explorer -->
-                <div class="app-card">
-                    <div class="app-icon">🚀</div>
-                    <h3>Challenger Case Explorer</h3>
-                    <span class="time-estimate">⏱️ 60-90 minutes</span>
-                    <p>Deep dive into the Challenger disaster through Roger Boisjoly's experience. See what happens when doing everything right isn't enough.</p>
-                    <ul class="features">
-                        <li>Interactive 18-month timeline</li>
-                        <li>Compare Boisjoly's vs. Management's PRF</li>
-                        <li>Decision simulator exercises</li>
-                        <li>Build your protection framework</li>
-                        <li>Export all reflections</li>
-                    </ul>
-                    <a href="https://rmertzman-tech.github.io/Challenge-Case-Explorer/" class="btn btn-primary">Explore Case →</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Chapter 2 -->
-        <div class="chapter-section fade-in">
-            <div class="chapter-header">
-                <h2 class="heading-font">📖 Chapter 2: Systematic Ethical Analysis</h2>
-                <p>Learn the SAGE framework for structured ethical decision-making and practice across diverse scenarios.</p>
-            </div>
-
-            <div class="app-grid">
-                <!-- Challenger Case Explorer (Chapter 1-2 Bridge) -->
-                <div class="app-card">
-                    <div class="app-icon">🚀</div>
-                    <h3>Challenger Case Explorer</h3>
-                    <span class="time-estimate">⏱️ 60-90 minutes</span>
-                    <p>Deep dive into the Challenger disaster through Roger Boisjoly's experience. See SAGE framework applied to an extreme case where doing everything right wasn't enough.</p>
-                    <ul class="features">
-                        <li>Interactive 18-month timeline</li>
-                        <li>Compare Boisjoly's vs. Management's PRF</li>
-                        <li>Decision simulator exercises</li>
-                        <li>Build your protection framework</li>
-                        <li>Export all reflections</li>
-                    </ul>
-                    <a href="https://rmertzman-tech.github.io/Challenge-Case-Explorer/" class="btn btn-primary">Explore Case →</a>
-                </div>
-
-                <!-- SAGE Method Interactive -->
-                <div class="app-card">
-                    <div class="app-icon">🧭</div>
-                    <h3>SAGE Method Interactive</h3>
-                    <span class="time-estimate">⏱️ 20-30 min per scenario</span>
-                    <p>Practice systematic ethical analysis across 5 diverse scenarios. Master the SAGE method: See • Analyze • Generate • Engage.</p>
-                    <ul class="features">
-                        <li>5 scenarios: personal, academic, workplace, professional, systemic</li>
-                        <li>Guided practice through all 4 SAGE steps</li>
-                        <li>Expert analysis comparison</li>
-                        <li>Warrant identification (prepares for Toulmin)</li>
-                        <li>Monitoring and adaptation emphasis</li>
-                        <li>Progress tracking and export</li>
-                    </ul>
-                    <a href="https://rmertzman-tech.github.io/SAGE-method-interactive/" class="btn btn-primary">Practice SAGE →</a>
-                </div>
-
-                <!-- ABCD Placeholder -->
-                <div class="placeholder-card">
-                    <div class="icon">🎯</div>
-                    <h3>ABCD Lens Tool</h3>
-                    <p>Agency • Beauty • Context • Dynamics</p>
-                    <p style="margin-top: 0.5rem; font-style: italic;">Four-dimensional ethical framework (Chapter 3)</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Future Chapters Placeholder -->
-        <div class="chapter-section fade-in">
-            <div class="chapter-header">
-                <h2 class="heading-font">📖 Additional Chapters <span class="status-badge status-coming">In Development</span></h2>
-                <p>More interactive tools will be added as the course develops.</p>
-            </div>
-
-            <div class="app-grid">
-                <div class="placeholder-card">
-                    <div class="icon">⚖️</div>
-                    <h3>Traditional Ethics Survey</h3>
-                    <p>Explore Aristotle, Kant, Mill, and Care Ethics through interactive scenarios</p>
-                </div>
-
-                <div class="placeholder-card">
-                    <div class="icon">🏛️</div>
-                    <h3>Institutional Analysis</h3>
-                    <p>Distinguish metabolic institutions from extractive ones</p>
-                </div>
-
-                <div class="placeholder-card">
-                    <div class="icon">🔮</div>
-                    <h3>Forward Pull Workshop</h3>
-                    <p>Build and refine your aspirational identity throughout the course</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- How to Use Section -->
-        <div class="info-section fade-in">
-            <h2 class="heading-font">📚 How to Use This Hub</h2>
+            <p>Think of ABCD as a lens system: you examine the same situation through multiple perspectives simultaneously, revealing patterns and possibilities that single-lens analysis misses. These four dimensions operate at every scale—from cellular biology to global institutions.</p>
             
-            <div class="info-grid">
-                <div class="info-box">
-                    <h3>🎯 Suggested Sequence</h3>
-                    <p>Start with PRF Builder to understand your lens, then explore the Challenger case to see what ethical challenges look like in practice. Build from self-knowledge to applied analysis.</p>
-                </div>
+            <p><strong>The Four Dimensions:</strong> Agency (who can act?), Beauty/Awe (what captures meaningful attention?), Context (what conditions shape possibility?), and Dynamics (how does this evolve over time?). Each dimension reveals essential aspects of human coordination and capability.</p>
+        </div>
 
-                <div class="info-box">
-                    <h3>💾 Your Work is Saved</h3>
-                    <p>Each app saves your progress in your browser. You can return anytime to continue. Use the export features to download your work for submissions or your portfolio.</p>
-                </div>
+        <!-- Dimensions Overview -->
+        <div class="dimensions-grid">
+            <div class="dimension-card agency">
+                <div class="dimension-icon">🎯</div>
+                <h3>Agency</h3>
+                <p><strong>Who can act? What expands or contracts capability?</strong></p>
+                <p>Agency is distributed and nested—from cells to institutions. It's not heroic will but distributed control that can be strengthened or weakened by state (physiological, emotional, social) and structure (institutional design, coalition networks, resources).</p>
+            </div>
 
-                <div class="info-box">
-                    <h3>⏱️ Time Management</h3>
-                    <p>Each app shows estimated completion time. You don't have to finish in one sitting—your progress saves automatically. Plan for focused, uninterrupted work sessions.</p>
-                </div>
+            <div class="dimension-card beauty">
+                <div class="dimension-icon">✨</div>
+                <h3>Beauty / Awe</h3>
+                <p><strong>What makes the right things salient?</strong></p>
+                <p>Not decoration—awe is pedagogical power. It captures attention, motivates exploration, and makes control layers visible. From cosmic deep time (13.8 billion years of construction leading to you) to vivid patterns that teach where intervention matters most.</p>
+            </div>
 
-                <div class="info-box">
-                    <h3>🤝 Collaborate Thoughtfully</h3>
-                    <p>Some tools work great with partners, others require solo reflection. When working with classmates, share ideas but ensure your written reflections are your own authentic voice.</p>
-                </div>
+            <div class="dimension-card context">
+                <div class="dimension-icon">🌐</div>
+                <h3>Context / Contingency</h3>
+                <p><strong>What conditions shape what's possible?</strong></p>
+                <p>Context isn't fixed backdrop—it's designable infrastructure. Standards, timing windows, reception networks, and guardrails expand or constrain possibility space. The same agents produce different outcomes under different contextual conditions.</p>
+            </div>
+
+            <div class="dimension-card dynamics">
+                <div class="dimension-icon">🔄</div>
+                <h3>Dynamics</h3>
+                <p><strong>How does this evolve through time?</strong></p>
+                <p>Feedbacks, thresholds, attractors, and hysteresis (new set-points that persist). Change isn't linear—it's state-dependent, with tipping points and stable basins. Understanding dynamics reveals when and how systems can shift.</p>
             </div>
         </div>
 
-        <!-- Technical Notes -->
-        <div class="info-section fade-in">
-            <h2 class="heading-font">⚙️ Technical Information</h2>
+        <!-- Scenario Selection -->
+        <div class="scenario-section">
+            <h2>Choose a Scenario to Analyze</h2>
+            <p style="color: #6b7280; margin-bottom: 1.5rem;">Select a scenario to examine through all four ABCD dimensions. Each scenario can be analyzed at multiple scales.</p>
             
-            <div class="mission-box">
-                <h3>Privacy & Data</h3>
-                <p>All your work is saved locally in your browser—nothing is sent to servers. Your reflections remain private unless you choose to export and share them. If you clear your browser data or use private/incognito mode, your work won't be saved.</p>
-            </div>
-
-            <div class="info-grid" style="margin-top: 1rem;">
-                <div class="info-box">
-                    <h3>✅ Best Experience</h3>
-                    <p>Use Chrome, Firefox, Safari, or Edge. Works on desktop, tablet, or phone. For longer writing sessions, desktop is recommended.</p>
+            <div class="scenario-grid">
+                <div class="scenario-card" onclick="selectScenario('stress')" id="scenario-stress">
+                    <div class="scenario-icon">😰</div>
+                    <span class="scenario-scale">Personal → Team</span>
+                    <h3>Chronic Workplace Stress</h3>
+                    <p>You're experiencing burnout. Sleep disrupted, always on edge, quality of work declining. How do all four dimensions apply?</p>
                 </div>
 
-                <div class="info-box">
-                    <h3>📥 Downloading Work</h3>
-                    <p>Each app has export functionality to download your reflections as text files. These can be submitted to Canvas or kept for your personal records.</p>
+                <div class="scenario-card" onclick="selectScenario('safety')" id="scenario-safety">
+                    <div class="scenario-icon">⚠️</div>
+                    <span class="scenario-scale">Professional → Institutional</span>
+                    <h3>Safety Reporting System</h3>
+                    <p>Your company's safety reporting system discourages honest reporting. How does ABCD reveal the full picture?</p>
                 </div>
 
-                <div class="info-box">
-                    <h3>🔄 Starting Fresh</h3>
-                    <p>If you want to reset an app and start over, look for "Clear" buttons or use your browser's developer tools to clear localStorage for this site.</p>
+                <div class="scenario-card" onclick="selectScenario('community')" id="scenario-community">
+                    <div class="scenario-icon">🏘️</div>
+                    <span class="scenario-scale">Community → Political</span>
+                    <h3>Community Recovery Design</h3>
+                    <p>Your community is designing disaster recovery systems. ABCD analysis reveals what makes systems resilient.</p>
                 </div>
 
-                <div class="info-box">
-                    <h3>❓ Need Help?</h3>
-                    <p>Contact your instructor if you encounter technical issues or have questions about how to use these tools effectively in the course.</p>
+                <div class="scenario-card" onclick="selectScenario('climate')" id="scenario-climate">
+                    <div class="scenario-icon">🌍</div>
+                    <span class="scenario-scale">National → Global</span>
+                    <h3>Climate Policy Coordination</h3>
+                    <p>Nations struggle to coordinate on climate action. ABCD shows why coordination fails and how to enable it.</p>
                 </div>
             </div>
         </div>
-    </main>
 
-    <footer>
-        <p><strong>Ethics Beyond Boundaries</strong> • Saint Petersburg College Ethics Institute</p>
-        <p style="margin-top: 0.5rem;">Developed 2025 • Version 1.0</p>
-    </footer>
+        <!-- Workspace -->
+        <div class="workspace" id="workspace">
+            <div class="workspace-header">
+                <h2 id="workspace-title">Scenario Analysis</h2>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="scenario-description" id="scenario-detail"></div>
+            </div>
+
+            <!-- Dimension Tabs -->
+            <div class="dimension-tabs">
+                <button class="dimension-tab active agency" onclick="switchDimension('agency')">
+                    🎯 Agency
+                </button>
+                <button class="dimension-tab beauty" onclick="switchDimension('beauty')">
+                    ✨ Beauty/Awe
+                </button>
+                <button class="dimension-tab context" onclick="switchDimension('context')">
+                    🌐 Context
+                </button>
+                <button class="dimension-tab dynamics" onclick="switchDimension('dynamics')">
+                    🔄 Dynamics
+                </button>
+            </div>
+
+            <!-- Dimension Content Container -->
+            <div id="dimension-container"></div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="showSynthesis()">
+                    View Synthesis →
+                </button>
+                <button class="btn btn-secondary" onclick="exportAnalysis()">
+                    Export Analysis
+                </button>
+                <button class="btn btn-primary" onclick="selectScenario(null)">
+                    Choose Different Scenario
+                </button>
+            </div>
+        </div>
+
+        <!-- Save Indicator -->
+        <div class="save-indicator" id="save-indicator">
+            <span>✓</span> Saved
+        </div>
+    </div>
+
+    <script>
+        // Data structure for scenarios
+        const scenarios = {
+            stress: {
+                title: "Chronic Workplace Stress",
+                icon: "😰",
+                scale: "Personal → Team",
+                description: "You've been working 60-hour weeks for six months. Sleep is disrupted, you're always on edge, small frustrations trigger outsized reactions. Your work quality is declining, relationships are strained, and you feel trapped—need the job, can't sustain the pace. This is affecting not just you, but your team's morale and performance.",
+                
+                dimensions: {
+                    agency: {
+                        intro: "Agency examines who can act and what shapes their capability space. Stress isn't just mental—it's physiological state that directly modulates what you can actually do.",
+                        scales: ["Personal", "Team", "Institutional"],
+                        questions: {
+                            Personal: [
+                                "What is your current physiological state? (HPA axis activation, autonomic tone, cortisol levels affect your actual capability to choose and execute)",
+                                "What buffers expand your agency? (sleep, social support, predictable routines, control over schedule)",
+                                "What shrinks it? (chronic activation, lack of control, role ambiguity, resource scarcity)"
+                            ],
+                            Team: [
+                                "How does collective stress spread through the team? (mirror neurons, emotional contagion, shared load)",
+                                "What coalition structures could distribute load differently?",
+                                "Who has capability to intervene—and what expands their agency to act?"
+                            ],
+                            Institutional: [
+                                "What institutional design creates chronic activation? (deadline structures, meeting culture, always-on norms)",
+                                "What policies could expand worker agency over their own state? (flexible scheduling, explicit rest periods, workload monitoring)",
+                                "How do extractive patterns externalize stress costs to individuals rather than internalizing them systemically?"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Agency Dimension:\n\nYour stress isn't weakness—it's state-dependent capability contraction. Sapolsky's research shows chronic glucocorticoids literally narrow your option set by affecting hippocampal function, decision-making capacity, and stress response. Agency requires physiological substrate.\n\nAt team level, stress is contagious through mirror neuron networks and shared load patterns. One person's burnout affects the whole system—this is nested agency. At institutional level, extractive design (quotas without recovery time, metrics without meaning) systematically depletes capability while externalizing costs to individuals.\n\nKey insight: Agency here is writable. Sleep, HRV training, social buffering, and control over schedule literally expand your policy space—what your brain can access. Connection to PRF: Your past experiences with control vs. helplessness shape how quickly stress depletes agency. Connection to SAGE: This is a case where Engaging requires monitoring your physiological state as a leading indicator—when HRV drops or sleep degrades, your agency to execute well-intended plans contracts."
+                    },
+                    beauty: {
+                        intro: "Beauty/Awe reveals what captures attention and motivates sustained effort. From cosmic heritage to immediate patterns, awe shapes what we notice and what drives us.",
+                        scales: ["Deep Time", "Immediate", "Aspirational"],
+                        questions: {
+                            "Deep Time": [
+                                "Consider: 13.8 billion years of cosmic evolution created the atoms in your body. Billions of years of biological evolution built your stress response system—designed to save you from predators, now triggered by emails. How does this deep time perspective change what feels 'important'?",
+                                "Your capacity to even recognize you're stressed and could choose differently is the product of countless minds and lives contributing to human knowledge. What does this inheritance mean for how you use your meta-constructor capability?",
+                                "What would ancestors who survived famines, wars, and plagues think about using this extraordinary inheritance to... meet arbitrary deadlines?"
+                            ],
+                            Immediate: [
+                                "What currently captures your attention? (inbox count, Slack notifications, meeting schedule—what's salient vs. what matters)",
+                                "What should capture attention to improve outcomes? (sleep quality, HRV trends, relationship health, creative capacity)",
+                                "How could you make stress costs visible and visceral? (track HRV, log mood, measure output quality over time)"
+                            ],
+                            Aspirational: [
+                                "What vision of your life could pull you toward different choices? (What future self do you want to become?)",
+                                "What collective vision could motivate systemic change? (Team operating at sustainable excellence vs. burnout churn)",
+                                "What makes sustainable excellence beautiful enough to pursue despite short-term pressure?"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Beauty/Awe Dimension:\n\nThe deep time lens is transformative: your stress response is a 500-million-year-old system meeting a 50-year-old environment (modern work). That's not design—it's mismatch. Recognizing this can shift what feels 'natural' or 'necessary.' Your capacity to even have this meta-awareness—to think about your thinking—is the product of billions of evolutionary innovations and millions of human lives contributing to knowledge.\n\nCurrently, the wrong things are salient (inbox count) because they're designed to capture attention (intermittent reinforcement, novelty bias). Making the right things salient requires measurement: track HRV, log energy patterns, measure decision quality. When you can see stress degrading your capacity in real-time, it becomes visceral—not abstract.\n\nAspirational awe: Graeber & Wengrow show societies chose different organizational forms based on what they found beautiful or meaningful. Your team could choose sustainable excellence over extraction—but only if that vision is compelling enough to override short-term pressure. Connection to metabolic institutions: A metabolic workplace would track and minimize allostatic load like it tracks and minimizes waste—making flourishing visible and valued."
+                    },
+                    context: {
+                        intro: "Context examines the conditions that shape what's possible. These aren't fixed—they're designable infrastructure that expands or constrains capability.",
+                        scales: ["Personal", "Team", "Institutional"],
+                        questions: {
+                            Personal: [
+                                "What contextual conditions affect your state? (sleep environment, commute time, exercise access, financial buffer)",
+                                "Which of these are actually designable/changeable? (move closer to work, negotiate remote days, join gym, build emergency fund)",
+                                "What timing windows matter? (when you sleep, when you do deep work, when you have difficult conversations)"
+                            ],
+                            Team: [
+                                "What team norms create context for stress or recovery? (always-on culture vs. respect for boundaries)",
+                                "What standards could be designed? (response time expectations, meeting-free blocks, workload visibility)",
+                                "What reception networks exist for strain? (Can you actually say 'I'm overwhelmed' and get support rather than judgment?)"
+                            ],
+                            Institutional: [
+                                "What institutional infrastructure creates chronic activation? (email culture, meeting proliferation, ambiguous priorities)",
+                                "What guardrails could protect capability? (hard limits on hours, mandatory rest periods, workload monitoring with intervention triggers)",
+                                "What would make this a metabolic vs. extractive context? (processing stress costs internally vs. externalizing to workers' health)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Context Dimension:\n\nLevin's research shows identical genomes produce different outcomes under different bioelectric contexts. Same principle here: you in a context of chronic activation, role ambiguity, and no control will perform and feel differently than you in a context of clear priorities, autonomy, and recovery time—same person, different context.\n\nKey insight: Context is infrastructure. The 'always-on' culture isn't natural—it's designed through meeting practices, email norms, response expectations. These are changeable. At team level, explicit norms around boundaries and workload create reception networks for strain—can people actually say they're overwhelmed without penalty?\n\nInstitutional level connects to metabolic vs. extractive: A metabolic organization would treat allostatic load like any other cost—measure it, minimize it, internalize it. Extractive organizations externalize stress to workers' personal health, relationships, and future capacity. Guardrails like hard hour limits and workload monitoring with intervention triggers are context design that protects capability. Connection to SAGE: Engaging with your stress means monitoring how context affects state and advocating for context changes—not just 'being more resilient.'"
+                    },
+                    dynamics: {
+                        intro: "Dynamics examines how situations evolve: feedbacks, thresholds, attractors. Understanding dynamics reveals when and how change happens.",
+                        scales: ["Individual", "Team", "System"],
+                        questions: {
+                            Individual: [
+                                "What feedback loops are operating? (stress → poor sleep → worse stress; exhaustion → mistakes → more work → more exhaustion)",
+                                "What thresholds exist? (At what point does fatigue cross into burnout? When does intention to change become actual change?)",
+                                "What attractors hold you in current state? (financial need, identity as 'hard worker', fear of letting team down)"
+                            ],
+                            Team: [
+                                "How does team stress create positive feedback? (one person burns out → workload shifts → others burn out → cascade)",
+                                "What would shift the team attractor from 'crisis mode' to 'sustainable excellence'? (What intervention changes the basin?)",
+                                "How do norms create hysteresis? (once 'always-on' becomes normal, brief changes don't shift it—requires sustained intervention)"
+                            ],
+                            System: [
+                                "What organizational dynamics maintain extraction? (short-term metrics create pressure → stress increases → quality drops → more pressure to compensate)",
+                                "Where are leverage points for attractor change? (leadership change, economic shift, mass exit creating talent crisis)",
+                                "What would a stable 'metabolic' attractor look like? (self-reinforcing cycle of recovery → capability → performance → trust → protection of recovery)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Dynamics Dimension:\n\nYour stress isn't static—it's caught in reinforcing feedback loops. Sapolsky documents how chronic activation → hippocampal changes → worse stress regulation → more activation. This creates a stable attractor basin: without intervention, you settle into high-stress as a new set-point (hysteresis).\n\nTeam level: Burnout cascades. One person leaves → work redistributes → others burn out → more leave. This is a threshold-crossing event that can flip the whole system. Preventing cascade requires early detection and intervention—monitoring leading indicators (HRV, sleep, engagement scores) rather than lagging ones (turnover).\n\nSystem dynamics: Extractive organizations are caught in their own feedback loop: short-term metrics create pressure → quality drops → more pressure to compensate. This is a stable but pathological attractor. Shifting to metabolic requires crossing a threshold—usually triggered by crisis (talent exodus, major failure, leadership change) that makes costs visible enough to warrant redesign.\n\nConnection to Federation concepts: Bio-compatible institutions would have automatic circuit-breakers—when stress metrics cross thresholds, mandatory interventions kick in (redistribute work, enforce rest, add resources). No meeting can override physiological safety limits. This treats threshold dynamics as design constraints, not individual willpower tests."
+                    }
+                }
+            },
+            
+            safety: {
+                title: "Safety Reporting System",
+                icon: "⚠️",
+                scale: "Professional → Institutional",
+                description: "You work at a manufacturing company. You've noticed that the safety reporting system, while technically available, seems designed to discourage actual use. Reports require manager approval before submission, reporters' names are visible to all leadership, and there's an unspoken understanding that 'frequent reporters' are labeled as 'not team players.' You witnessed a near-miss incident that could have been serious, but your coworkers are reluctant to report it.",
+                
+                dimensions: {
+                    agency: {
+                        intro: "Agency examines who has the capability to speak up and what expands or constrains that capability. Fear is physiological—it contracts your action space.",
+                        scales: ["Personal", "Team", "Institutional"],
+                        questions: {
+                            Personal: [
+                                "What is your physiological response to considering reporting? (Fear constricts capability—this is state-dependent agency)",
+                                "What would expand your capability to act? (Coalition support, financial security, documented evidence)",
+                                "What specific fears constrain your agency? (Retaliation, job loss, social isolation, career damage)"
+                            ],
+                            Team: [
+                                "How does collective silence reinforce individual fear? (Everyone waiting for someone else to act)",
+                                "What coalition structures could distribute risk? (Group reporting, union representation, external advocacy)",
+                                "Who has protected capability to speak? (Senior employees, those with other job options, those with legal protections)"
+                            ],
+                            Institutional: [
+                                "How does the reporting system design suppress agency? (Manager approval, public names, labeling)",
+                                "What institutional protections would expand capability to report? (Anonymous channels, external review, anti-retaliation enforcement)",
+                                "How does extractive design externalize safety costs? (Accidents borne by workers rather than company absorbing prevention costs)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Agency Dimension:\n\nFear isn't weakness—it's a physiological state that literally narrows your capability space. Your amygdala activation, cortisol response, and risk assessment are working as designed—just in a context that punishes honest reporting. This is state-dependent agency: same you in a protected context would act differently.\n\nTeam level shows distributed capability and collective action problems. Boisjoly had engineering authority but not political capital alone. When everyone waits for someone else to act, agency is diffused to zero. Coalition formation changes the game: group reporting distributes retaliation risk and increases credibility.\n\nInstitutional level reveals extractive design: the system appears to invite reporting while actually suppressing it. Manager approval means reports can be blocked. Public names enable retaliation. 'Not team player' labeling creates social cost. This externalizes safety costs—accidents happen to individual workers rather than company internalizing prevention expenses. Metabolic design would make reporting truly protected, anonymous, and rewarded. Connection to Challenger: Boisjoly reported through proper channels repeatedly. The system captured his concerns and ignored them—his agency was symbolic only."
+                    },
+                    beauty: {
+                        intro: "Beauty/Awe reveals what captures attention and what should. From evolutionary cooperation to immediate harm visibility to aspirational safety culture.",
+                        scales: ["Deep Time", "Immediate", "Aspirational"],
+                        questions: {
+                            "Deep Time": [
+                                "Human cooperation evolved through costly signaling and reciprocal altruism over millions of years. Honest warning calls saved countless lives. What does this evolutionary heritage mean for safety reporting?",
+                                "Consider: every safety protocol you have exists because someone, somewhere, died or was maimed. Their sacrifice is encoded in rules you follow. What responsibility does this inheritance create?",
+                                "Your capacity to recognize danger and warn others is the product of deep evolutionary selection. Using it despite social cost honors that inheritance. What does this perspective add?"
+                            ],
+                            Immediate: [
+                                "What currently captures attention in your workplace? (Production metrics, deadlines, manager approval)",
+                                "What should capture attention to prevent harm? (Near-miss patterns, safety margin erosion, reporting suppression)",
+                                "How could you make potential harm visible and visceral? (Photos of near-miss, stories of past accidents, data on incident trends)"
+                            ],
+                            Aspirational: [
+                                "What does a high-reliability organization culture look like? (Where reporting is celebrated, errors are learning, safety trumps production)",
+                                "What would make safety excellence beautiful enough to pursue? (Pride in zero-harm record, team protection ethic, craftsmanship standards)",
+                                "What vision could pull your organization toward metabolic rather than extractive safety?"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Beauty/Awe Dimension:\n\nEvolutionary perspective: Humans evolved in small groups where honest warning signals had direct survival value. Your stress response when considering reporting is calibrated for immediate social cost (ostracism from the tribe), not modern institutional retaliation. The system exploits this ancient wiring—social punishment for costly signaling—even though organizational 'death' isn't literal death.\n\nCurrently, the wrong things are salient: production numbers visible on dashboards, safety incidents hidden in manager-filtered reports. Making harm visible changes salience: photos of the near-miss, testimony from injured workers, transparent incident data. When costs are visceral rather than abstract, attention shifts.\n\nAspirational awe: High-reliability organizations (aircraft carriers, nuclear plants) create cultures where reporting is heroic, not treasonous. They make safety margins salient, celebrate catching errors early, and treat near-misses as gifts of information. This requires making excellence beautiful—craftsmanship pride, zero-harm records, team protection ethos. Connection to Challenger: NASA had once been a high-reliability culture. Budget pressure and normalization of deviance eroded it. Boisjoly's warnings should have been beautiful signals of diligence—instead they were political nuisances."
+                    },
+                    context: {
+                        intro: "Context examines the conditions—especially designable infrastructure—that shape what's possible. Safety reporting infrastructure is context design.",
+                        scales: ["Personal", "Team", "Institutional"],
+                        questions: {
+                            Personal: [
+                                "What contextual conditions affect your willingness to report? (Job security, savings, alternative employment options, family obligations)",
+                                "Which conditions are actually changeable? (Build emergency fund, network for job options, document everything)",
+                                "What timing matters? (When to report—immediately vs. after building coalition, before vs. after incident)"
+                            ],
+                            Team: [
+                                "What team norms create context for silence vs. speaking up? (How are past reporters treated? What stories circulate?)",
+                                "What standards could be designed? (Anonymous reporting norm, collective reports, external ombudsman)",
+                                "What reception networks exist? (Can you actually tell someone 'I'm afraid to report' and get protection vs. punishment?)"
+                            ],
+                            Institutional: [
+                                "What infrastructure enables vs. blocks honest reporting? (Anonymous channels, external review, whistleblower protections)",
+                                "What would metabolic vs. extractive reporting infrastructure look like? (Internalizing safety costs vs. externalizing to workers)",
+                                "What guardrails protect reporters? (Anti-retaliation enforcement, sortition panel review, legal protections with teeth)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Context Dimension:\n\nYour reporting system is designed context that contracts capability. Manager approval, public names, and 'not team player' labeling aren't neutral infrastructure—they're extraction mechanisms that externalize safety costs to workers while protecting management from accountability. This is designable.\n\nMetabolic context would look like: truly anonymous reporting channels, external safety review boards, anti-retaliation enforcement with real consequences, celebration of reporters as heroes. Federation concept: sortition panels—randomly selected workers who review safety reports independent of management—create accountability without requiring individual heroism.\n\nKey insight: Context creates different possibility spaces. Same you in different contexts acts differently—not because you're braver but because infrastructure enables it. Aviation industry learned this through disasters: now reporting is protected, encouraged, aggregated for pattern detection. That's designable infrastructure, not individual virtue.\n\nConnection to Challenger: Morton Thiokol's context was extractive—engineering concerns filtered through management decision-making, with engineers lacking veto power over launch decisions. Boisjoly's capability to prevent disaster was constrained by context design. After Challenger, NASA redesigned context: engineers gained direct escalation paths. That's context as designable infrastructure."
+                    },
+                    dynamics: {
+                        intro: "Dynamics examines feedback loops, thresholds, and attractors. Safety culture is a system attractor—hard to shift but powerful when changed.",
+                        scales: ["Individual", "Team", "System"],
+                        questions: {
+                            Individual: [
+                                "What feedback loops keep you silent? (Silence → no retaliation → continued silence vs. speak → punishment → silence)",
+                                "What threshold would trigger you to report despite fear? (Imminent serious injury, someone else injured, legal requirement)",
+                                "What attractors hold current behavior? (Need for income, social belonging, identity as 'not a troublemaker')"
+                            ],
+                            Team: [
+                                "How does team silence create reinforcing feedback? (No one reports → norm solidifies → harder for anyone to report)",
+                                "What would shift the team attractor from silence to safety? (Critical mass of reporters, leadership change, external pressure)",
+                                "How do stories create hysteresis? (Once 'don't report' becomes culture, brief interventions don't shift it)"
+                            ],
+                            System: [
+                                "What organizational dynamics maintain suppression? (Production pressure → cutting corners → near-misses → suppression → more risk)",
+                                "Where are leverage points for attractor change? (Usually crisis—serious accident, regulatory intervention, public scandal)",
+                                "What would a stable 'safety-first' attractor look like? (Self-reinforcing: reporting → correction → fewer incidents → trust → more reporting)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Dynamics Dimension:\n\nSafety culture is an attractor basin. Your organization is stuck in 'suppress reporting' attractor: production pressure → corner-cutting → near-misses → report suppression → normalized deviance → more risk. This is self-reinforcing. Breaking it requires crossing a threshold—usually a crisis that makes costs undeniable.\n\nIndividual dynamics: Fear feedback loops are stable. First time you stay silent because of fear, second time is easier—you've established a pattern. Threshold question: what would force you to report despite consequences? Usually imminent serious harm or legal obligation. That's your tipping point.\n\nTeam dynamics: Collective silence reinforces itself. If everyone waits for someone else, norm solidifies. Shift requires critical mass or leadership modeling. Once shifted, new norm creates hysteresis—reporting becomes normal and persists. System dynamics: Most organizations only shift after crisis. Challenger was NASA's threshold-crossing event—forced attractor shift from normalized deviance to safety-first culture (temporarily).\n\nFederation concept: Instead of waiting for crisis, bio-compatible design builds automatic circuit-breakers: when safety reports drop below threshold or near-misses spike, independent review triggers. Metrics force visibility before disaster. This treats dynamics as design constraint—don't rely on individual courage to overcome systemic extractive patterns."
+                    }
+                }
+            },
+
+            community: {
+                title: "Community Recovery Design",
+                icon: "🏘️",
+                scale: "Community → Political",
+                description: "Your coastal community is redesigning disaster recovery systems after a hurricane revealed major gaps. Individual preparedness varies widely, mutual aid networks are informal and patchy, and government response was slow and inequitable. The recovery design committee is deciding: should they focus on individual responsibility (encourage personal stockpiles), institutional support (government-provided resources), or distributed resilience (community-based mutual aid networks)?",
+                
+                dimensions: {
+                    agency: {
+                        intro: "Agency examines capability to respond and recover at multiple nested scales—individual, community, governmental.",
+                        scales: ["Individual", "Community", "Governmental"],
+                        questions: {
+                            Individual: [
+                                "What expands individual capability to prepare and respond? (Resources, knowledge, social networks, time, health)",
+                                "What constrains it? (Poverty, disability, isolation, information access, competing demands)",
+                                "How does individual agency depend on collective infrastructure? (Can't prepare if food/water supply chains break)"
+                            ],
+                            Community: [
+                                "What enables community-level agency? (Trust networks, shared resources, coordination capacity, local knowledge)",
+                                "How do strong vs. weak ties function in crisis? (Neighbors for immediate help, wider networks for resources)",
+                                "What institutional forms enable collective action? (Mutual aid groups, neighborhood councils, volunteer organizations)"
+                            ],
+                            Governmental: [
+                                "What is government's proper role in expanding vs. constraining community capability?",
+                                "How do top-down vs. distributed responses differ in effectiveness and resilience?",
+                                "What policies expand community agency vs. creating dependency or fragility?"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Agency Dimension:\n\nDisaster reveals nested agency. Individual capability depends on physiological state (chronic stress, health), resources (savings, supplies), and social capital (who helps you). But individual agency alone is insufficient—you can't stockpile a functioning electrical grid or water treatment plant.\n\nCommunity-level agency emerges from trust networks and coordination capacity. Graeber & Wengrow show communities historically chose different governance forms based on needs and values. Mutual aid networks are distributed agency—not heroic individuals but functional cooperation that expands everyone's capability. Strong ties (immediate neighbors) provide concrete help; weak ties (broader networks) provide resource access and information.\n\nGovernmental role is expanding capability infrastructure, not replacing community agency. Top-down response is slow and inflexible; distributed response is fast but requires pre-existing networks. Federation concept: government provides standards, resources, and backstop; communities build actual resilience through networks and local knowledge. Connection to metabolic design: Resilient systems internalize recovery capacity rather than externalizing vulnerability to individual 'personal responsibility.'"
+                    },
+                    beauty: {
+                        intro: "Beauty/Awe grounds recovery in deep time ecological resilience and makes visible the bonds that matter most.",
+                        scales: ["Deep Time", "Immediate", "Aspirational"],
+                        questions: {
+                            "Deep Time": [
+                                "Ecosystems have survived mass extinctions through redundancy and adaptation over geological time. What does deep resilience teach about community design?",
+                                "Human communities endured ice ages, plagues, and civilizational collapse through cooperation and distributed knowledge. What inheritance does this provide?",
+                                "Consider the 13.8 billion year journey that created the conditions for human community. How does this perspective inform recovery priorities?"
+                            ],
+                            Immediate: [
+                                "What becomes visible in disaster that's hidden in normal times? (Community bonds, essential workers, supply chain fragility)",
+                                "What currently captures attention vs. what should? (Property values vs. social cohesion, short-term cost vs. long-term resilience)",
+                                "How could you make community bonds and mutual aid visible and valued in non-crisis times?"
+                            ],
+                            Aspirational: [
+                                "What does an antifragile community look like—one that strengthens under stress?",
+                                "What vision of collective resilience could inspire sustained effort? (Neighborhood cohesion, shared abundance, mutual care)",
+                                "What would make resilient interdependence beautiful enough to build?"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Beauty/Awe Dimension:\n\nDeep time reveals ecosystems survive through redundancy, modularity, and adaptation—not individual robustness but system resilience. Coral reefs, forests, and wetlands show how distributed, networked systems persist through catastrophes that would destroy centralized ones. This is pedagogical—it teaches what resilience actually looks like.\n\nDisaster makes visible what market society obscures: essential workers, supply chains, community bonds, mutual aid networks. What seemed optional becomes obviously crucial. Currently, property values and individual assets capture attention; community cohesion and mutual capacity should be salient for actual resilience.\n\nAspirational: Antifragile communities don't just recover—they improve through stress. This requires distributed capacity, trust networks, and institutional forms that expand during crisis rather than contract. Making this vision beautiful and compelling pulls effort toward it. Graeber & Wengrow: communities built massive public works (Poverty Point, Indus cities) without hierarchical control when collective vision was compelling. Connection to metabolic institutions: Resilient communities internalize recovery capacity through distributed infrastructure and mutual aid, rather than externalizing vulnerability to individual 'preparedness.'"
+                    },
+                    context: {
+                        intro: "Context examines the infrastructure—physical, social, institutional—that shapes resilience. Recovery is context design.",
+                        scales: ["Physical", "Social", "Institutional"],
+                        questions: {
+                            Physical: [
+                                "What physical infrastructure enables resilience? (Distributed power, water systems, food storage, communication networks)",
+                                "Which infrastructure is centralized vs. distributed? What does each provide?",
+                                "What standards and building codes shape possibility? (Flood zones, construction requirements, evacuation routes)"
+                            ],
+                            Social: [
+                                "What social infrastructure creates resilience? (Trust networks, mutual aid groups, shared knowledge, cultural practices)",
+                                "What reception networks exist for those in need? (Food banks, shelter systems, neighbor checking, information sharing)",
+                                "How do different communities (wealth, race, ability) experience different contextual resources?"
+                            ],
+                            Institutional: [
+                                "What policies and regulations shape community capacity? (Zoning, emergency management, resource pre-positioning)",
+                                "How do governmental vs. non-governmental institutions create context differently?",
+                                "What would metabolic recovery infrastructure look like—internalizing resilience vs. externalizing vulnerability?"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Context Dimension:\n\nPhysical infrastructure reveals centralized vs. distributed trade-offs. Centralized power grids are efficient but fragile (single point failure). Distributed solar + storage is resilient but expensive upfront. Resilient context requires redundancy and modularity—multiple pathways for essential services. Building codes and zoning are context design: they determine what's possible to build and where.\n\nSocial infrastructure is trust networks and mutual aid capacity. These aren't spontaneous—they're built through repeated interaction, cultural practices, and institutional support. Reception networks for those in need determine whether vulnerability is temporary or catastrophic. Crucially, context is inequitable: wealthy neighborhoods have generators, cars, second homes; poor neighborhoods lack these buffers. Same hurricane, radically different context.\n\nInstitutional context: Government creates infrastructure (evacuation routes, emergency services, communication systems) but also regulations that enable or constrain community self-organization. Metabolic design internalizes resilience costs—builds capacity before disaster rather than externalizing to emergency response. Federation concept: distributed governance with clear protocols and pre-positioned resources, not waiting for centralized response. Connection to Challenger: NASA's context (schedule pressure, budget cuts, political visibility) shaped engineering judgment. Recovery context shapes community survival."
+                    },
+                    dynamics: {
+                        intro: "Dynamics examines how disaster recovery cycles, community cohesion feedbacks, and system transitions work.",
+                        scales: ["Disaster Cycle", "Community", "System"],
+                        questions: {
+                            "Disaster Cycle": [
+                                "What is the typical disaster → response → recovery → forgetting → vulnerability cycle?",
+                                "What would break this cycle? (Sustained attention, institutional memory, ongoing investment)",
+                                "Where are thresholds? (What level of damage triggers community exodus vs. rebuilding commitment?)"
+                            ],
+                            Community: [
+                                "How does disaster affect community cohesion? (Immediate spike in mutual aid, then fade over time)",
+                                "What feedback loops maintain or erode social capital? (Trust → cooperation → success → more trust)",
+                                "How do cultural narratives create attractors? ('Resilient community' identity vs. 'victim waiting for help')"
+                            ],
+                            System: [
+                                "What systemic dynamics create repeated vulnerability? (Development in flood zones, climate change, infrastructure decay)",
+                                "What would shift the attractor from reactive to proactive resilience?",
+                                "How do policy cycles interact with disaster cycles? (Brief political attention, then fade before implementation)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Dynamics Dimension:\n\nDisaster cycles show predictable patterns: crisis → cohesion → recovery → forgetting → vulnerability → next crisis. This is a stable but pathological attractor. Breaking it requires sustained institutional memory and ongoing investment through the low-attention period. Thresholds matter: beyond certain damage levels, communities don't recover—they dissolve (population exodus, economic collapse).\n\nCommunity cohesion dynamics: Immediate post-disaster period shows dramatic mutual aid spike (high trust, shared purpose, visible need). This fades as normalcy returns unless institutionalized into ongoing practices. Cultural narratives matter: 'resilient community' identity creates positive attractor (pride in capability, ongoing preparation). 'Victim' narrative creates learned helplessness.\n\nSystem dynamics: Repeated vulnerability comes from feedback loops: development pressure → building in flood zones → disaster → recovery subsidies → more development in flood zones. This is perverse attractor maintained by short-term incentives against long-term risk. Climate change adds external forcing—disasters increase in frequency and severity faster than adaptation.\n\nLeverage points: Usually post-disaster when costs are salient and political will exists. But window closes fast—policy attention fades before implementation. Federation concept: Standing institutions (resilience councils, mutual aid networks, resource stockpiles) with automatic triggers provide countercyclical stability. Connection to metabolic design: Internalizing resilience costs means building capacity continuously, not emergency spending after each disaster."
+                    }
+                }
+            },
+
+            climate: {
+                title: "Climate Policy Coordination",
+                icon: "🌍",
+                scale: "National → Global",
+                description: "You're a policy advisor working on international climate agreements. The coordination problem is obvious: every nation benefits from others reducing emissions but faces domestic costs for its own reductions. Short-term economic incentives oppose long-term survival needs. Past agreements have failed to produce necessary action. How do you design coordination mechanisms that actually work at the scale required?",
+                
+                dimensions: {
+                    agency: {
+                        intro: "Agency examines who can act at which scales, and how capability is distributed or concentrated. Climate requires coordinated agency across nested levels.",
+                        scales: ["National", "International", "Distributed"],
+                        questions: {
+                            National: [
+                                "What expands a nation's capability to act on climate? (Economic resources, political will, technological capacity)",
+                                "What constrains it? (Fossil fuel dependence, development needs, political polarization, short-term incentives)",
+                                "How does climate stress itself contract agency? (Disasters divert resources from mitigation to immediate response)"
+                            ],
+                            International: [
+                                "What enables collective action among nations? (Treaties, economic incentives, shared monitoring, reputation mechanisms)",
+                                "What creates free-rider problems? (Benefits of others' action without bearing costs, enforcement difficulty)",
+                                "How do power asymmetries affect coordination? (Developed vs. developing nations, historical emissions vs. current capacity)"
+                            ],
+                            Distributed: [
+                                "What role for non-state actors? (Cities, corporations, NGOs, citizen movements)",
+                                "How does polycentric governance expand agency? (Multiple actors at multiple scales, not waiting for international agreement)",
+                                "What would distributed coordination look like? (Many initiatives rather than single global deal)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Agency Dimension:\n\nClimate reveals limits of individual and national agency—no single actor can solve it alone, but all must act. National capability depends on resources, technology, and political capacity, but is constrained by fossil fuel lock-in, development pressures, and short-term political cycles. Crucially, climate stress contracts agency: disasters divert resources from prevention to response (Sapolsky's allostatic load at national scale).\n\nInternational collective action faces classic free-rider problem: each nation benefits from others' emissions cuts without bearing costs of their own. Traditional treaties rely on enforcement mechanisms that don't exist at global scale (no world government). Power asymmetries matter: wealthy nations caused historical emissions but now demand poor nations forgo fossil-fueled development—equity crisis.\n\nPolycentric governance offers alternative: cities, states, corporations, NGOs act at their scales without waiting for international agreement. This is distributed agency—not heroic global deal but functional coordination through multiple mechanisms. Graeber & Wengrow: Large-scale cooperation doesn't require centralized authority—can emerge through standards, reciprocity, reputation. Connection to Federation: Nested sovereignty with clear protocols at each scale, not waiting for top-down global consensus."
+                    },
+                    beauty: {
+                        intro: "Beauty/Awe grounds climate action in planetary deep time and makes visible what's truly at stake—across scales from geological to generational.",
+                        scales: ["Deep Time", "Planetary", "Future"],
+                        questions: {
+                            "Deep Time": [
+                                "Earth's 4.5 billion year history includes five mass extinctions. We're in the sixth, human-caused. What does this deep time perspective add to climate urgency?",
+                                "The atmosphere enabling complex life took billions of years to form. We're altering it in decades. How does this timescale mismatch inform action?",
+                                "Consider: every atom of oxygen you breathe was created by photosynthetic organisms over geological time. What responsibility does this inheritance create?"
+                            ],
+                            Planetary: [
+                                "What makes Earth's fragility visible? (Images from space, ice core data, real-time CO2 measurements, species extinction rates)",
+                                "What currently captures attention vs. what should? (GDP growth vs. ecological stability, quarterly profits vs. generational survival)",
+                                "How could planetary boundaries be made salient to decision-makers? (Visualizations, ritual observations, shared dashboards)"
+                            ],
+                            Future: [
+                                "What vision of viable future could pull coordinated action? (Regenerative economies, climate-stable world for descendants)",
+                                "How do we make future generations' agency visible now? (They can't speak, vote, or negotiate—but their stakes are highest)",
+                                "What would make intergenerational justice beautiful and compelling enough to override short-term extraction?"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Beauty/Awe Dimension:\n\nDeep time perspective is crushing and clarifying: five previous mass extinctions took millions of years to unfold and millions more to recover from. The sixth is unfolding in human timescales—we can watch it happen. The atmosphere sustaining complex life is a multi-billion-year inheritance we're destabilizing in decades. This isn't abstraction—it's planetary-scale vandalism of cosmic heritage.\n\nCurrently, wrong things are salient: GDP growth, stock prices, quarterly earnings, political polling. What should capture attention: atmospheric CO2 (crossing 420 ppm), species extinction rates (1000x background), ice sheet collapse trajectories, ocean acidification. Making these visible requires ritual: global 'quiet minutes' watching real-time CO2 monitors, satellite imagery of ice loss, shared dashboards of planetary boundaries.\n\nFuture generations can't negotiate because they don't exist yet—ultimate failure of voice. Their agency must be represented through institutional design: constitutional protections, long-term trusts, youth advocacy structures. Vision of viable future pulls action: regenerative rather than extractive economies, climate stability as public good, flourishing as collective goal. Connection to metabolic institutions: Climate-stable future requires internalizing carbon costs rather than externalizing to future generations' survival. Currently we're extracting present wealth by depleting future capacity."
+                    },
+                    context: {
+                        intro: "Context examines the infrastructure—economic, institutional, technological—that shapes what's possible at global scale.",
+                        scales: ["Economic", "Institutional", "Technological"],
+                        questions: {
+                            Economic: [
+                                "What economic infrastructure locks in fossil fuel use? (Subsidies, sunk costs in infrastructure, price externalities)",
+                                "What context changes enable transition? (Carbon pricing, renewable cost curves, green finance mechanisms)",
+                                "How do trade systems create context for coordination or defection? (Border carbon adjustments, climate trade agreements)"
+                            ],
+                            Institutional: [
+                                "What international institutions create context for cooperation? (UN climate framework, Paris Agreement, monitoring systems)",
+                                "What's missing? (Enforcement mechanisms, equity provisions, technology transfer infrastructure)",
+                                "What would Federation-style governance look like at climate scale? (Sortition panels for review, automatic circuit-breakers at thresholds)"
+                            ],
+                            Technological: [
+                                "What technological infrastructure is needed? (Renewable energy, storage, transmission, monitoring)",
+                                "What standards enable coordination? (Interoperability, measurement protocols, data sharing)",
+                                "How does uneven technological capacity create equity issues? (Developed nations have resources, developing nations have needs)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Context Dimension:\n\nEconomic context is fossil fuel lock-in: subsidies ($5+ trillion annually), sunk costs (pipelines, refineries, vehicles), and externalized costs (climate damage not in prices). Changing context requires carbon pricing that internalizes costs, renewable cost curves that make alternatives cheaper (already happening with solar/wind), and green finance mechanisms that redirect capital flows. Trade context matters: border carbon adjustments prevent 'carbon leakage' (moving production to low-regulation countries).\n\nInstitutional context is weak: Paris Agreement lacks enforcement, monitoring is voluntary, equity provisions are inadequate. Missing infrastructure: no mechanism to ensure wealthy nations compensate poor ones for climate damages or fund their transitions. What's needed: automatic triggers (when emissions don't decline, protocols activate), independent review (sortition panels, not political negotiation), and circuit-breakers (hard limits that can't be overridden by meetings).\n\nTechnological context: Renewable infrastructure is necessary but not sufficient—needs storage, transmission, and coordination systems. Standards matter: measurement protocols that enable verification, data sharing that makes impacts visible, interoperability that allows system integration. Equity crisis: developed nations have resources to transition; developing nations need both development and decarbonization. Technology transfer and capacity building are context design—expanding possibility space for all nations. Connection to metabolic design: Climate-stable context requires infrastructure that internalizes carbon costs at every level, not externalizing to atmosphere and future."
+                    },
+                    dynamics: {
+                        intro: "Dynamics examines feedback loops, tipping points, and attractor shifts in climate systems and human coordination.",
+                        scales: ["Climate System", "Economic", "Political"],
+                        questions: {
+                            "Climate System": [
+                                "What feedback loops accelerate warming? (Ice-albedo, permafrost methane, forest die-off, ocean carbon absorption decline)",
+                                "What are the critical tipping points? (Ice sheet collapse, AMOC shutdown, Amazon transition, permafrost thaw)",
+                                "How do cascading failures work? (One tipping point triggers others—threshold dynamics with hysteresis)"
+                            ],
+                            Economic: [
+                                "What economic feedbacks maintain fossil fuel dependence? (Infrastructure lock-in, political lobbying, employment, tax revenue)",
+                                "What could shift the economic attractor? (Renewable cost parity, stranded asset recognition, green finance growth)",
+                                "How do economic and climate dynamics interact? (Climate damages slow growth, which reduces mitigation capacity—positive feedback)"
+                            ],
+                            Political: [
+                                "What political dynamics create coordination failure? (Short election cycles, free-rider incentives, partisan polarization)",
+                                "What shifts political attractors? (Visible disasters, youth movements, economic transitions making change inevitable)",
+                                "How could sustained action be maintained across political cycles? (Constitutional protections, independent institutions, automatic triggers)"
+                            ]
+                        },
+                        expert: "Expert ABCD Analysis - Dynamics Dimension:\n\nClimate system has multiple reinforcing feedbacks: warming melts ice → less reflection → more warming. Permafrost thaw releases methane → more warming → more thaw. These are threshold-crossing events: once ice sheets destabilize, they don't restabilize at current temperatures (hysteresis). Multiple tipping points can cascade: Amazon forest die-off → carbon release → warming → AMOC shutdown → regional climate shift → more ecosystem collapse.\n\nEconomic dynamics maintain fossil fuel lock-in through infrastructure (sunk costs make transition expensive), political economy (industry lobbying, employment, tax revenue), and price externalities (climate damage not reflected in fossil fuel prices). Shift requires crossing threshold where renewables are cheaper AND political will exists to strand fossil assets. This is attractor change—requires coordinated action at scale to overcome inertia.\n\nPolitical dynamics are mismatched to climate timescales: 2-6 year election cycles against century-scale challenges. Free-rider problem and partisan polarization create coordination failure. Shift typically requires crisis (visible disasters) or movement pressure (youth climate strikes) making inaction politically costly. Sustaining action across political cycles requires institutional design: constitutional climate protections, independent climate authorities, automatic policy triggers that activate when emissions don't decline.\n\nConnection to Federation: Bio-compatible climate governance would have circuit-breakers—when emissions cross thresholds or tipping points approach, automatic protocols activate (carbon rationing, emergency mobilization, resource redirection). No election can override biophysical limits. This treats threshold dynamics as design constraints, embedding climate stability into governance infrastructure rather than hoping political will persists."
+                    }
+                }
+            }
+        };
+
+        let currentScenario = null;
+        let currentDimension = 'agency';
+        let currentScale = {};
+        let userResponses = {};
+
+        function selectScenario(scenarioId) {
+            if (!scenarioId) {
+                document.getElementById('workspace').classList.remove('active');
+                document.querySelectorAll('.scenario-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                return;
+            }
+
+            currentScenario = scenarioId;
+            const scenario = scenarios[scenarioId];
+            
+            // Update active state
+            document.querySelectorAll('.scenario-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.getElementById('scenario-' + scenarioId).classList.add('active');
+            
+            // Show workspace
+            document.getElementById('workspace').classList.add('active');
+            document.getElementById('workspace-title').textContent = scenario.title;
+            document.getElementById('scenario-detail').innerHTML = `<p>${scenario.description}</p>`;
+            
+            // Initialize with first dimension
+            currentDimension = 'agency';
+            initializeScales();
+            renderDimension();
+            updateProgress();
+            
+            // Scroll to workspace
+            document.getElementById('workspace').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function initializeScales() {
+            const scenario = scenarios[currentScenario];
+            Object.keys(scenario.dimensions).forEach(dim => {
+                if (!currentScale[dim]) {
+                    currentScale[dim] = scenario.dimensions[dim].scales[0];
+                }
+            });
+        }
+
+        function switchDimension(dimension) {
+            currentDimension = dimension;
+            
+            // Update tab active states
+            document.querySelectorAll('.dimension-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.dimension-tab.${dimension}`).classList.add('active');
+            
+            renderDimension();
+            updateProgress();
+        }
+
+        function renderDimension() {
+            const scenario = scenarios[currentScenario];
+            const dim = scenario.dimensions[currentDimension];
+            const scale = currentScale[currentDimension];
+            
+            let html = `
+                <div class="dimension-content active">
+                    <div class="dimension-intro ${currentDimension}">
+                        <h4>${getDimensionName(currentDimension)}</h4>
+                        <p>${dim.intro}</p>
+                    </div>
+                    
+                    <div class="scale-selector">
+                        <h4>Analysis Scale:</h4>
+                        <div class="scale-buttons">
+                            ${dim.scales.map(s => `
+                                <button class="scale-btn ${scale === s ? 'active' : ''}" 
+                                        onclick="changeScale('${s}')">
+                                    ${s}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    
+                    <div class="questions-section">
+                        ${dim.questions[scale].map((q, i) => `
+                            <div class="question-group">
+                                <h5>${q}</h5>
+                                <textarea 
+                                    id="q-${currentDimension}-${scale}-${i}"
+                                    onchange="saveResponse('${currentDimension}', '${scale}', ${i})"
+                                    placeholder="Your analysis..."
+                                >${getResponse(currentDimension, scale, i)}</textarea>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div class="expert-section">
+                        <h4>✨ Expert Analysis: ${getDimensionName(currentDimension)}</h4>
+                        ${dim.expert.split('\n\n').map(para => `<p>${para}</p>`).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('dimension-container').innerHTML = html;
+        }
+
+        function getDimensionName(dim) {
+            const names = {
+                agency: 'Agency',
+                beauty: 'Beauty / Awe',
+                context: 'Context / Contingency',
+                dynamics: 'Dynamics'
+            };
+            return names[dim];
+        }
+
+        function changeScale(newScale) {
+            currentScale[currentDimension] = newScale;
+            renderDimension();
+        }
+
+        function saveResponse(dimension, scale, questionIndex) {
+            const key = `${currentScenario}-${dimension}-${scale}-${questionIndex}`;
+            const value = document.getElementById(`q-${dimension}-${scale}-${questionIndex}`).value;
+            
+            if (!userResponses[currentScenario]) {
+                userResponses[currentScenario] = {};
+            }
+            userResponses[currentScenario][key] = value;
+            
+            // Save to localStorage
+            localStorage.setItem('abcd_responses', JSON.stringify(userResponses));
+            
+            // Show save indicator
+            showSaveIndicator();
+            updateProgress();
+        }
+
+        function getResponse(dimension, scale, questionIndex) {
+            const key = `${currentScenario}-${dimension}-${scale}-${questionIndex}`;
+            return userResponses[currentScenario]?.[key] || '';
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('save-indicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        function updateProgress() {
+            // Calculate progress based on filled responses
+            const scenario = scenarios[currentScenario];
+            let totalQuestions = 0;
+            let answeredQuestions = 0;
+            
+            Object.keys(scenario.dimensions).forEach(dim => {
+                scenario.dimensions[dim].scales.forEach(scale => {
+                    const questions = scenario.dimensions[dim].questions[scale];
+                    totalQuestions += questions.length;
+                    
+                    questions.forEach((q, i) => {
+                        if (getResponse(dim, scale, i).trim()) {
+                            answeredQuestions++;
+                        }
+                    });
+                });
+            });
+            
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function showSynthesis() {
+            alert('Synthesis view coming in next iteration! This will show how all four dimensions interconnect for this scenario.');
+        }
+
+        function exportAnalysis() {
+            const scenario = scenarios[currentScenario];
+            let output = `ABCD Lens Analysis: ${scenario.title}\n`;
+            output += `${'='.repeat(50)}\n\n`;
+            output += `Scenario: ${scenario.description}\n\n`;
+            
+            Object.keys(scenario.dimensions).forEach(dim => {
+                output += `\n${getDimensionName(dim).toUpperCase()}\n`;
+                output += `${'-'.repeat(50)}\n`;
+                
+                scenario.dimensions[dim].scales.forEach(scale => {
+                    output += `\n[${scale} Scale]\n\n`;
+                    
+                    scenario.dimensions[dim].questions[scale].forEach((q, i) => {
+                        output += `Q: ${q}\n`;
+                        const response = getResponse(dim, scale, i);
+                        output += `A: ${response || '[Not answered]'}\n\n`;
+                    });
+                });
+            });
+            
+            // Create download
+            const blob = new Blob([output], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ABCD_Analysis_${currentScenario}_${Date.now()}.txt`;
+            a.click();
+        }
+
+        // Load saved responses on page load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('abcd_responses');
+            if (saved) {
+                userResponses = JSON.parse(saved);
+            }
+        });
+    </script>
 </body>
 </html>
